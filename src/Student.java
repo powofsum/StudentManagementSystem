@@ -78,12 +78,14 @@ public class Student {
     }
 
     public void setGpa(float gpa) {
+
        if(gpa>4 || gpa<0){
            System.out.println("Invalid gpa");
            exit(1);
        }
        this.gpa=gpa;
     }
+
     
     @Override
     public String toString() {

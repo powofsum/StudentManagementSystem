@@ -1,4 +1,3 @@
-package lab.pkg5;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,9 +10,85 @@ import static java.lang.System.exit;
 import static java.util.Collections.list;
 
 public class Admin {
-   ArrayList <Student> sList = new ArrayList<>();
-   public void addStudent(String studentID , String name , String age , String gender , String department , String gpa) throws IOException{
-       if(studentID.isBlank() || name.isBlank() || age.isBlank() || gender.isBlank() || department.isBlank() || gpa.isBlank()){
+   private ArrayList <Student> sList = new ArrayList<>();
+    // private UISorting sorting; // use sorting directly
+
+    //public Admin(UISorting sorting){
+    //    this.sorting=sorting;
+    //}
+
+   // LOAD FROM FILE METHOD version 1
+    public ArrayList <Student> LoadFromFile() throws FileNotFoundException, IOException{
+        ArrayList <Student> sList = new ArrayList <>();
+        File f = new File("Students.txt");
+        if(!f.exists( )){
+            return sList;
+        }
+        try(BufferedReader r = new BufferedReader (new FileReader(f))){
+            String l ;
+            String[] data ;
+            while (( l = r.readLine( ))!= null){
+                //data = l.split(",");
+                data = l.split("\\s*,\\s*");
+                String name = data[0];
+                int age = Integer.parseInt(data[1]);
+                int id = Integer.parseInt(data[2]);
+                String gender = data[3];
+                String department = data[4];
+                float gpa = Float.parseFloat(data[5]);
+                Student s = new Student(name , age , id , gender , department , gpa );
+                sList.add(s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sList;
+    }
+
+    //===================loading data from file version 2
+    public ArrayList loadFromFile(){
+        ArrayList<Student> students=new ArrayList<>();
+        try{
+            BufferedReader reader=new BufferedReader(new FileReader("Students.txt"));
+            String line;
+            Student student;
+            // adding each line into arraylist of type student
+            // format: name,age,id,gender,dep,gpa
+            while( (line=reader.readLine()) !=null){
+                String[]dataline=line.split(",");
+                student=new Student(dataline[0],Integer.parseInt(dataline[1]),
+                        Integer.parseInt(dataline[2])
+                        ,dataline[3],dataline[4],Float.parseFloat(dataline[5]));
+                students.add(student);
+            }
+            reader.close();
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+        return students;
+
+    }
+
+    // SAVE TO FILE METHOD
+    public void saveToFile(ArrayList <Student> list) throws IOException {
+        try(FileWriter f = new FileWriter("Students.txt", false)){
+            // Flase : To delete all last data and update it .
+            for(Student s : list){
+                f.write(s.toString() + "\n");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+// ADD STUDENT METHOD
+   public void addStudent(String studentID , String name , String age ,
+                          String gender , String department , String gpa) throws IOException{
+       if(studentID.isBlank() || name.isBlank() ||
+               age.isBlank() || gender.isBlank() || department.isBlank() || gpa.isBlank()){
            System.out.println("Error : All fields must be filled");
            exit(1);
        }
@@ -26,13 +101,11 @@ public class Admin {
        String sDepartment = department.trim();
        String sGpa = gpa.trim();
        
-       int id ; 
-       int a ;
-       float g ;
+       int id ; int ageAdd ; float gpaAdd ;
        try{
        id = Integer.parseInt(sId);
-       a = Integer.parseInt(sAge);
-       g = Float.parseFloat(sGpa);
+       ageAdd = Integer.parseInt(sAge);
+       gpaAdd = Float.parseFloat(sGpa);
        } catch(NumberFormatException e){
            System.out.println("Error :ID , Gpa and Age must be numeric values");
            return;
@@ -43,7 +116,7 @@ public class Admin {
                exit(1);
            }
        }
-       Student s = new Student(sName , a , id , sGender , sDepartment , g);
+       Student s = new Student(sName , ageAdd , id , sGender , sDepartment , gpaAdd);
       
        
        try(FileWriter f = new FileWriter("Students.txt" , true)){
@@ -57,50 +130,7 @@ public class Admin {
        
    } 
 
-public ArrayList <Student> LoadFromFile() throws FileNotFoundException, IOException{
-     ArrayList <Student> sList = new ArrayList <>( ); 
-     File f = new File("Students.txt");
-     if(!f.exists( )){
-     return sList;
-      }
-     try(BufferedReader r = new BufferedReader (new FileReader(f))){
-     String l ;
-     String[] data ;
-     while (( l = r.readLine( ))!= null){
-     //data = l.split(",");
-     data = l.split("\\s*,\\s*");
-     String name = data[0];
-     int age = Integer.parseInt(data[1]);
-     int id = Integer.parseInt(data[2]);
-     String gender = data[3];
-     String department = data[4];
-     float gpa = Float.parseFloat(data[5]);
-     Student s = new Student(name , age , id , gender , department , gpa );
-     sList.add(s);
-    }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    return sList;
-}
-
-
-
-
-
-public void saveToFile(ArrayList <Student> list) throws IOException {
-     try(FileWriter f = new FileWriter("Students.txt", false)){ // Flase : To delete all last data and update it .
-     for(Student s : list){
-     f.write(s.toString() + "\n");
-     }
-    }
-    catch (IOException e) {
-        e.printStackTrace();
-    }
-  }
-
-
-
+   // VIEW/DISPLAY STUDENTS METHOD
 public void ViewStudents( ) throws IOException{
     ArrayList <Student> studentsList = new ArrayList <>( );
     studentsList = LoadFromFile();
@@ -125,6 +155,8 @@ public void ViewStudents( ) throws IOException{
 //     saveToFile(studentsList);
 // }
 
+
+    //DELETE STUDENT METHOD
 public void deleteStudent(long id) throws IOException{
    ArrayList <Student> studentslist = new ArrayList<>();
    studentslist = LoadFromFile();
@@ -136,4 +168,43 @@ public void deleteStudent(long id) throws IOException{
       }
    saveToFile(studentslist);
 }
+
+
+    //searchStudent using name
+    public Student searchStudent(String name) throws IOException {
+        ArrayList<Student> students=LoadFromFile();
+        Student foundStudent=null;
+        for(int i=0;i<students.size();i++){
+            if(students.get(i).getName().equalsIgnoreCase(name)){
+                foundStudent= students.get(i);
+            }
+        }
+        //delete this part later==============================
+//        if(foundStudent!=null)
+//            System.out.println("Found");
+//        else
+//            System.out.println("not Found");
+        //===================================================
+        return foundStudent;
+    }
+
+    //overloading searchStudent method
+    public Student searchStudent(int ID) throws IOException {
+        ArrayList<Student> students=LoadFromFile();
+        Student foundStudent=null;
+        for(int i=0;i<students.size();i++){
+            if( (students.get(i).getStudentID()) ==ID){
+                foundStudent= students.get(i);
+            }
+
+        }
+        //delete this part later==============================
+//        if(foundStudent!=null)
+//            System.out.println("Found");
+//        else
+//            System.out.println("not Found");
+        //===================================================
+
+        return foundStudent;
+    }
 }

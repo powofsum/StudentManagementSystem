@@ -1,4 +1,3 @@
-package lab.pkg5;
 import static java.lang.System.exit;
 
 public class Student {

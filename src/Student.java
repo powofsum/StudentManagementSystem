@@ -1,3 +1,4 @@
+package lab.pkg5;
 import static java.lang.System.exit;
 
 public class Student {
@@ -6,10 +7,10 @@ public class Student {
     private int age;
     private String gender;
     private String department;
-    private double gpa;
+    private float gpa;
 
     public Student(String name, int age, int studentID,
-                   String gender, String department, double gpa) {
+                   String gender, String department, float gpa) {
         this.name = name;
         this.department = department;
         setAge(age);
@@ -31,10 +32,11 @@ public class Student {
     }
 
     public void setAge(int age) {
-        if(age<=0) {
+        if(age<=10 || age>30) {
             System.out.println("Invalid age");
             exit(1);
         }
+        this.age=age;
     }
 
     public int getStudentID() {
@@ -76,11 +78,16 @@ public class Student {
         return gpa;
     }
 
-    public void setGpa(double gpa) {
-       if(gpa<0){
+    public void setGpa(float gpa) {
+       if(gpa>4 || gpa<0){
            System.out.println("Invalid gpa");
            exit(1);
        }
        this.gpa=gpa;
     }
+    
+    @Override
+    public String toString() {
+    return name + "," + age + "," + studentID + "," + gender + "," + department + "," + gpa;
+   }
 }

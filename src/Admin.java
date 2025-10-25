@@ -1,4 +1,4 @@
-
+//HERE
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,7 +17,6 @@ public class Admin {
     //    this.sorting=sorting;
     //}
 
-   // LOAD FROM FILE METHOD version 1
     public ArrayList <Student> LoadFromFile() throws FileNotFoundException, IOException{
         ArrayList <Student> sList = new ArrayList <>();
         File f = new File("Students.txt");
@@ -43,31 +42,6 @@ public class Admin {
             e.printStackTrace();
         }
         return sList;
-    }
-
-    //===================loading data from file version 2
-    public ArrayList loadFromFile(){
-        ArrayList<Student> students=new ArrayList<>();
-        try{
-            BufferedReader reader=new BufferedReader(new FileReader("Students.txt"));
-            String line;
-            Student student;
-            // adding each line into arraylist of type student
-            // format: name,age,id,gender,dep,gpa
-            while( (line=reader.readLine()) !=null){
-                String[]dataline=line.split(",");
-                student=new Student(dataline[0],Integer.parseInt(dataline[1]),
-                        Integer.parseInt(dataline[2])
-                        ,dataline[3],dataline[4],Float.parseFloat(dataline[5]));
-                students.add(student);
-            }
-            reader.close();
-        }
-        catch(IOException e){
-            System.out.println(e);
-        }
-        return students;
-
     }
 
     // SAVE TO FILE METHOD

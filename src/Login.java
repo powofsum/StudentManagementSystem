@@ -1,5 +1,3 @@
-package lab.pkg5;
-
 public class Login {
    private String name ;
    private String password;

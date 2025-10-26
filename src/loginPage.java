@@ -5,19 +5,17 @@ import guitest.HomePage;
 import javax.swing.JOptionPane;
 
 public class loginPage extends javax.swing.JFrame {
- public String username="renad"; //for testing
- public String password="123";   //for testing
- 
- 
+ private ArrayList<Login> users=new ArrayList<>();
  //////////////////////////////////////////////////////// a username and password read and check 
    
     public loginPage() {
         initComponents();
+      loadUsersFromFile("Users.txt");
        loginButton.addActionListener(e -> {
             String enteredUsername = usernameInput.getText();
             String enteredPassword = new String(passwordInput.getPassword());
 
-            if (enteredUsername.equals(username) && enteredPassword.equals(password)) {
+            if (checkLogin(enteredUsername,enteredPassword)) {
                 new HomePage().setVisible(true);
                 dispose();
             } else {
@@ -25,9 +23,30 @@ public class loginPage extends javax.swing.JFrame {
             }
         });
     }
-            
-    
 
+ private void loadUsersFromFile(String filename){
+        try (BufferedReader reader = new BufferedReader(new FileReader("Users.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+           
+                    String name = parts[0];
+                    String password = parts[1];
+                    users.add(new Login(name, password));
+                
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error reading users file: " + e.getMessage());
+        }
+    }
+private boolean checkLogin(String username, String password) {
+        for (Login user : users) {
+            if (user.getName().equals(username) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

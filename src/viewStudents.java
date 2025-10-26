@@ -79,7 +79,7 @@ public class viewStudents extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Age", "ID", "Department"
             }
         ));
         studentsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

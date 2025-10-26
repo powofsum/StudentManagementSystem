@@ -13,15 +13,19 @@ public class HomePage extends javax.swing.JFrame {
        dispose();
         });
         viewButton.addActionListener(e -> {
-        ViewStudents viewPage = new ViewStudents();
+        viewStudents viewPage = new viewStudents();
         viewPage.loadStudentsTable(); 
         viewPage.setVisible(true);
         this.dispose(); 
 });
+<<<<<<< Updated upstream
 searchButton.addActionListener(e -> {
     new SearchStudent().setVisible(true);
     dispose();
 });
+=======
+   
+>>>>>>> Stashed changes
 
         /////////////////////////////////////to be added when gehad finish
      /*   viewButton.addActionListener(e -> {

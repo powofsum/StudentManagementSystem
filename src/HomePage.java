@@ -18,15 +18,10 @@ public class HomePage extends javax.swing.JFrame {
         viewPage.setVisible(true);
         this.dispose(); 
 });
-<<<<<<< Updated upstream
 searchButton.addActionListener(e -> {
     new SearchStudent().setVisible(true);
     dispose();
 });
-=======
-   
->>>>>>> Stashed changes
-
         /////////////////////////////////////to be added when gehad finish
      /*   viewButton.addActionListener(e -> {
     new ViewStudentsPage().setVisible(true);

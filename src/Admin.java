@@ -12,7 +12,7 @@ import static java.util.Collections.list;
 public class Admin {
    private ArrayList <Student> sList = new ArrayList<>();
     // private UISorting sorting; // use sorting directly
-                                  // commented with code to use each separately,in line 120,121
+                                  // commented with code to use each separately,in line 121,122
                                   //LINE 14,18,19,20,(121 OR 122) COMMENTS SHOULD
                                  // BE REMOVED TO USE INTERFACE
     //public Admin(UISorting sorting){

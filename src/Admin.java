@@ -102,7 +102,7 @@ public class Admin {
            System.out.println("Error");
            e.printStackTrace();
        }
-       
+      return null; 
    } 
 
    // VIEW/DISPLAY STUDENTS METHOD

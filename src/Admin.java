@@ -22,14 +22,13 @@ public class Admin {
     public ArrayList <Student> LoadFromFile() throws FileNotFoundException, IOException{
         ArrayList <Student> sList = new ArrayList <>();
         File f = new File("Students.txt");
-        if(!f.exists( )){
-            return sList;
+       if (!f.exists() || f.length() == 0) {
+        return sList;
         }
         try(BufferedReader r = new BufferedReader (new FileReader(f))){
             String l ;
             String[] data ;
             while (( l = r.readLine( ))!= null){
-                //data = l.split(",");
                 data = l.split("\\s*,\\s*");
                 String name = data[0];
                 int age = Integer.parseInt(data[1]);

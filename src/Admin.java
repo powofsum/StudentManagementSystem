@@ -22,14 +22,13 @@ public class Admin {
     public ArrayList <Student> LoadFromFile() throws FileNotFoundException, IOException{
         ArrayList <Student> sList = new ArrayList <>();
         File f = new File("Students.txt");
-        if(!f.exists( )){
-            return sList;
+       if (!f.exists() || f.length() == 0) {
+        return sList;
         }
         try(BufferedReader r = new BufferedReader (new FileReader(f))){
             String l ;
             String[] data ;
             while (( l = r.readLine( ))!= null){
-                //data = l.split(",");
                 data = l.split("\\s*,\\s*");
                 String name = data[0];
                 int age = Integer.parseInt(data[1]);
@@ -61,12 +60,11 @@ public class Admin {
 
 
 // ADD STUDENT METHOD
-   public void addStudent(String studentID , String name , String age ,
+   public String addStudent(String studentID , String name , String age ,
                           String gender , String department , String gpa) throws IOException{
        if(studentID.isBlank() || name.isBlank() ||
                age.isBlank() || gender.isBlank() || department.isBlank() || gpa.isBlank()){
-           System.out.println("Error : All fields must be filled");
-           exit(1);
+           return "Error : All fields must be filled";
        }
        ArrayList <Student> sList = new ArrayList<>();
        sList = LoadFromFile();
@@ -83,13 +81,13 @@ public class Admin {
        ageAdd = Integer.parseInt(sAge);
        gpaAdd = Float.parseFloat(sGpa);
        } catch(NumberFormatException e){
-           System.out.println("Error :ID , Gpa and Age must be numeric values");
-           return;
+         return  "Error :ID , Gpa and Age must be numeric values";
+           
        }
        for(Student s : sList){
            if(s.getStudentID() == id){
-               System.out.println("Sorry , Id already exists");
-               exit(1);
+               return "Sorry , Id already exists";
+            
            }
        }
        Student s = new Student(sName , ageAdd , id , sGender , sDepartment , gpaAdd);
@@ -97,13 +95,13 @@ public class Admin {
        
        try(FileWriter f = new FileWriter("Students.txt" , true)){
           f.write(s.toString() + "\n");
-          System.out.println("Successfully added to the file");
+          return "Successfully added to the file";
        }
        catch(IOException e){
            System.out.println("Error");
            e.printStackTrace();
        }
-       
+      return null; 
    } 
 
    // VIEW/DISPLAY STUDENTS METHOD
@@ -188,4 +186,27 @@ public void deleteStudent(long id) throws IOException{
 
         return foundStudent;
     }
+   // Verify username and password for Login method
+   public boolean VerifyUserAccount(String name, String pass) {
+    File f = new File("Users.txt");
+    String line;
+    try (BufferedReader r = new BufferedReader(new FileReader(f))) {
+        
+        while ((line = r.readLine()) != null) {
+            String[] data = line.split(",");
+            String n = data[0];
+            String p = data[1];
+
+            if (name.equalsIgnoreCase(n) && pass.equalsIgnoreCase(p)) {
+                System.out.println("Welcome, " + name);
+                return true;
+            }
+        }  
+    }
+       catch (IOException e) {
+        e.printStackTrace();
+      }
+    return false;
+  } 
+   
 }

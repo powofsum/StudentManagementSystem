@@ -1,7 +1,7 @@
 package guitest;
 
 public class AddStudentsPage extends javax.swing.JFrame {
-
+ private Admin admin = new Admin();
     public AddStudentsPage() {
         initComponents();
     }
@@ -155,13 +155,29 @@ public class AddStudentsPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void genderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-    }                                              
+     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+       String name = nameTextField.getText();
+    String id = idTextField.getText();
+    String age = ageTextField.getText();
+    String gender = genderComboBox.getSelectedItem().toString();
+    String department = departmentTextField.getText();
+    String gpa = gpaTextField.getText();
 
-    private void departmentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
-    }                                                   
+    String result = null;
+    try {
+        result = admin.addStudent(id, name, age, gender, department, gpa);
+    } catch (IOException ex) {
+        Logger.getLogger(AddStudentsPage.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Error saving student data: " + ex.getMessage());
+        return;
+    }
+
+    JOptionPane.showMessageDialog(this, result);
+
+    if ("Successfully added to the file".equals(result)) {
+dispose();
+    }
+    }                                          
 
     /**
      * @param args the command line arguments

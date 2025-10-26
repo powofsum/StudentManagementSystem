@@ -1,8 +1,11 @@
 
-package guitest;
-
-import guitest.HomePage;
+//package guitest;
+//import guitest.HomePage;
 import javax.swing.JOptionPane;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class loginPage extends javax.swing.JFrame {
  private ArrayList<Login> users=new ArrayList<>();

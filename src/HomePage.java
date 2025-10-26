@@ -1,7 +1,5 @@
 
-package guitest;
-
-
+//package guitest;
 public class HomePage extends javax.swing.JFrame {
 
     /**
@@ -22,6 +20,10 @@ searchButton.addActionListener(e -> {
     new SearchStudent().setVisible(true);
     dispose();
 });
+        deleteButton.addActionListener(e -> {
+            new DeleteStudent().setVisible(true);
+            dispose();
+        });
         /////////////////////////////////////to be added when gehad finish
      /*   viewButton.addActionListener(e -> {
     new ViewStudentsPage().setVisible(true);

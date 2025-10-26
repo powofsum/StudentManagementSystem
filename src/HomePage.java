@@ -12,6 +12,12 @@ public class HomePage extends javax.swing.JFrame {
         addButton.addActionListener(e->{new AddStudentsPage().setVisible(true);
        dispose();
         });
+        viewButton.addActionListener(e -> {
+        ViewStudents viewPage = new ViewStudents();
+        viewPage.loadStudentsTable(); 
+        viewPage.setVisible(true);
+        this.dispose(); 
+});
         /////////////////////////////////////to be added when gehad finish
      /*   viewButton.addActionListener(e -> {
     new ViewStudentsPage().setVisible(true);

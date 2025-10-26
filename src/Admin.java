@@ -12,7 +12,9 @@ import static java.util.Collections.list;
 public class Admin {
    private ArrayList <Student> sList = new ArrayList<>();
     // private UISorting sorting; // use sorting directly
-
+                                  // commented with code to use each separately,in line 120,121
+                                  //LINE 14,18,19,20,(121 OR 122) COMMENTS SHOULD
+                                 // BE REMOVED TO USE INTERFACE
     //public Admin(UISorting sorting){
     //    this.sorting=sorting;
     //}
@@ -112,7 +114,12 @@ public void ViewStudents( ) throws IOException{
         System.out.println("NO student found");
         return;
     }
+    // here-line 120 we only sort using id, no implementation for Name.
+    // WHAT IF WE WANT TO APPLY SORTING ALGO USING GPA OR DEP,ETC?
+    //THAT IS WHY SORTING INTERFACE IMPLEMENTED!!!
     studentsList.sort((S1,S2) -> Long .compare(S1.getStudentID() ,S2.getStudentID()));
+    //sorting.sortID(studentsList); //sort using id==== line121
+    // sorting.sortName(studentsList); //sort using name==== line122
     for ( Student s : studentsList){
     System.out.println(s);
     }

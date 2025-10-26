@@ -61,12 +61,11 @@ public class Admin {
 
 
 // ADD STUDENT METHOD
-   public void addStudent(String studentID , String name , String age ,
+   public String addStudent(String studentID , String name , String age ,
                           String gender , String department , String gpa) throws IOException{
        if(studentID.isBlank() || name.isBlank() ||
                age.isBlank() || gender.isBlank() || department.isBlank() || gpa.isBlank()){
-           System.out.println("Error : All fields must be filled");
-           exit(1);
+           return "Error : All fields must be filled";
        }
        ArrayList <Student> sList = new ArrayList<>();
        sList = LoadFromFile();
@@ -83,13 +82,13 @@ public class Admin {
        ageAdd = Integer.parseInt(sAge);
        gpaAdd = Float.parseFloat(sGpa);
        } catch(NumberFormatException e){
-           System.out.println("Error :ID , Gpa and Age must be numeric values");
-           return;
+         return  "Error :ID , Gpa and Age must be numeric values";
+           
        }
        for(Student s : sList){
            if(s.getStudentID() == id){
-               System.out.println("Sorry , Id already exists");
-               exit(1);
+               return "Sorry , Id already exists";
+            
            }
        }
        Student s = new Student(sName , ageAdd , id , sGender , sDepartment , gpaAdd);
@@ -97,7 +96,7 @@ public class Admin {
        
        try(FileWriter f = new FileWriter("Students.txt" , true)){
           f.write(s.toString() + "\n");
-          System.out.println("Successfully added to the file");
+          return "Successfully added to the file";
        }
        catch(IOException e){
            System.out.println("Error");

@@ -16,20 +16,12 @@ import javax.swing.table.DefaultTableModel;
 public class viewStudents extends javax.swing.JFrame {
 
     /**
-     * Creates new form viewStudents
+     * Creates new form ViewStudents
      */
+   
     public viewStudents() {
-        initComponents();
-        loadStudentsTable();
-        
-         DefaultTableModel model = new DefaultTableModel(
-        new Object[][] {}, 
-        new String[] { "Name", "Age", "ID", "Gender", "Department", "GPA" }
-    );
-    studentsTable.setModel(model);
-
-    
-    
+    initComponents();
+    loadStudentsTable();   
 }
     
     public void loadStudentsTable() {
@@ -120,15 +112,19 @@ public class viewStudents extends javax.swing.JFrame {
 
     private void studentsTableMouseClicked(java.awt.event.MouseEvent evt) {                                           
         // TODO add your handling code here:
-          int selectedRow = studentsTable.getSelectedRow();
+                                                    
+    int selectedRow = studentsTable.getSelectedRow();
     if (selectedRow != -1) {
-        int id = Integer.parseInt(studentsTable.getValueAt(selectedRow, 2).toString()); // العمود بتاع الـ ID
-        UpdateStudent updateForm = new UpdateStudent(id); // نمرر الـ ID
-        updateForm.setVisible(true);
-        this.dispose(); // نقفل الصفحة الحالية مؤقتاً
+
+        
+        SearchStudent ss = new SearchStudent();
+        ss.setVisible(true);
+        this.dispose();
+
     } else {
         javax.swing.JOptionPane.showMessageDialog(this, "Please select a student first!");
     }
+
     }                                          
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {                                  
@@ -175,4 +171,3 @@ public class viewStudents extends javax.swing.JFrame {
     private javax.swing.JTable studentsTable;
     // End of variables declaration                   
 }
-

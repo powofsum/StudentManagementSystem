@@ -186,4 +186,27 @@ public void deleteStudent(long id) throws IOException{
 
         return foundStudent;
     }
+   // Verify username and password for Login method
+   public boolean VerifyUserAccount(String name, String pass) {
+    File f = new File("Users.txt");
+    String line;
+    try (BufferedReader r = new BufferedReader(new FileReader(f))) {
+        
+        while ((line = r.readLine()) != null) {
+            String[] data = line.split(",");
+            String n = data[0];
+            String p = data[1];
+
+            if (name.equalsIgnoreCase(n) && pass.equalsIgnoreCase(p)) {
+                System.out.println("Welcome, " + name);
+                return true;
+            }
+        }  
+    }
+       catch (IOException e) {
+        e.printStackTrace();
+      }
+    return false;
+  } 
+   
 }

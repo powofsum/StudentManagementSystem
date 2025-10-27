@@ -73,13 +73,13 @@ public class viewStudents extends javax.swing.JFrame {
 
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null},
+                    {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Age", "ID", "Department"
+                    "Name", "Age", "ID", "Gender", "Department", "GPA"
             }
         ));
         studentsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

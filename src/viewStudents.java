@@ -1,5 +1,5 @@
 
-//package guitest;
+package guitest;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -13,13 +13,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Yasser Elshaer
  */
-public class viewStudents extends javax.swing.JFrame {
+public class ViewStudents extends javax.swing.JFrame {
 
     /**
      * Creates new form ViewStudents
      */
    
-    public viewStudents() {
+    public ViewStudents() {
     initComponents();
     loadStudentsTable();   
 }
@@ -73,13 +73,13 @@ public class viewStudents extends javax.swing.JFrame {
 
         studentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                    {null, null, null, null, null, null},
-                    {null, null, null, null, null, null},
-                    {null, null, null, null, null, null},
-                    {null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                    "Name", "Age", "ID", "Gender", "Department", "GPA"
+                "name", "age", "ID", "gender", "department", "GPA"
             }
         ));
         studentsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -111,19 +111,27 @@ public class viewStudents extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void studentsTableMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        // TODO add your handling code here:
-                                                    
+                                                  
     int selectedRow = studentsTable.getSelectedRow();
     if (selectedRow != -1) {
+        String name = studentsTable.getValueAt(selectedRow, 0).toString();
+        int age = Integer.parseInt(studentsTable.getValueAt(selectedRow, 1).toString());
+        int id = Integer.parseInt(studentsTable.getValueAt(selectedRow, 2).toString());
+        String gender = studentsTable.getValueAt(selectedRow, 3).toString();
+        String department = studentsTable.getValueAt(selectedRow, 4).toString();
+        float gpa = Float.parseFloat(studentsTable.getValueAt(selectedRow, 5).toString());
 
-        
-        SearchStudent ss = new SearchStudent();
-        ss.setVisible(true);
+        Student selectedStudent = new Student(name, age, id, gender, department, gpa);
+
+        UpdateStudent updateForm = new UpdateStudent(selectedStudent);
+        updateForm.setVisible(true);
         this.dispose();
-
     } else {
         javax.swing.JOptionPane.showMessageDialog(this, "Please select a student first!");
     }
+
+    
+
 
     }                                          
 
@@ -148,20 +156,20 @@ public class viewStudents extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(viewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(viewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(viewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(viewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new viewStudents().setVisible(true);
+                new ViewStudents().setVisible(true);
             }
         });
     }

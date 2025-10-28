@@ -183,18 +183,52 @@ public UpdateStudent(Student student) {
     }                                   
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-                                                   
+                                            
     try {
-        ArrayList<Student> list = admin.LoadFromFile();
+       
+        if (name.getText().trim().isEmpty() || age.getText().trim().isEmpty() ||
+            department.getText().trim().isEmpty() || Gpa.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill all fields!");
+            return;
+        }
 
+        
+        int newAge;
+        try {
+            newAge = Integer.parseInt(age.getText().trim());
+            if (newAge <= 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Age must be a positive number!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Age must be a valid number!");
+            age.setText(""); 
+            return;
+        }
+
+        
+        float newGpa;
+        try {
+            newGpa = Float.parseFloat(Gpa.getText().trim());
+            if (newGpa < 0 || newGpa > 4) {
+                javax.swing.JOptionPane.showMessageDialog(this, "GPA must be between 0 and 4!");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "GPA must be a valid number!");
+            Gpa.setText("");
+            return;
+        }
+
+        
         for (int i = 0; i < list.size(); i++) {
-            Student s = list.get(i);
-            if (s.getStudentID() == student.getStudentID()) {
+            Student s = list.get(i); 
+            if (s.getStudentID() == studentId) {
                 s.setName(name.getText().trim());
-                s.setAge(Integer.parseInt(age.getText().trim()));
+                s.setAge(newAge);
                 s.setGender(gender.getSelectedItem().toString());
                 s.setDepartment(department.getText().trim());
-                s.setGpa(Float.parseFloat(Gpa.getText().trim()));
+                s.setGpa(newGpa);
                 break;
             }
         }
@@ -202,14 +236,18 @@ public UpdateStudent(Student student) {
         admin.saveToFile(list);
         javax.swing.JOptionPane.showMessageDialog(this, "Student updated successfully!");
         
-        // نرجع لصفحة العرض
-        new ViewStudents().setVisible(true);
+        
+        ViewStudents mainView = new ViewStudents();
+        mainView.setVisible(true);
         this.dispose();
-
-    } catch (IOException e) {
+    } 
+    catch (IOException e) {
         e.printStackTrace();
         javax.swing.JOptionPane.showMessageDialog(this, "Error while saving changes!");
-    }
+    
+}
+
+
 
 
     }                                            

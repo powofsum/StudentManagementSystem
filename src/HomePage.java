@@ -11,7 +11,7 @@ public class HomePage extends javax.swing.JFrame {
        dispose();
         });
         viewButton.addActionListener(e -> {
-        viewStudents viewPage = new viewStudents();
+        ViewStudents viewPage = new ViewStudents();
         viewPage.loadStudentsTable(); 
         viewPage.setVisible(true);
         this.dispose(); 
@@ -25,22 +25,7 @@ searchButton.addActionListener(e -> {
             dispose();
         });
         /////////////////////////////////////to be added when gehad finish
-     /*   viewButton.addActionListener(e -> {
-    new ViewStudentsPage().setVisible(true);
-    dispose();
-});
 
-searchButton.addActionListener(e -> {
-    new SearchStudentsPage().setVisible(true);
-    dispose();
-});
-
-deleteButton.addActionListener(e -> {
-    new DeleteStudentsPage().setVisible(true);
-    dispose();
-});
-
-       */ 
     }
 //////////////////////////////////////////////////////////////////////
     /**

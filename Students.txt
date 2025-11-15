@@ -1,0 +1,9 @@
+Heba,23,4567,female,fashion,4.0
+Ali,29,123,male,english,3.99
+yasser,24,190,MALE,neeuroscience,3.92
+amani,29,762,female,MechE,3.96
+aliaa,22,7282,FEMALE,biology,3.88
+jake,26,96842,MALE,geology,3.87
+yasmin,22,638928,FEMALE,biology,4.0
+Salma,24,985,female,pharmacy,3.99
+rnad,20,555,FEMALE,compu,3.5
